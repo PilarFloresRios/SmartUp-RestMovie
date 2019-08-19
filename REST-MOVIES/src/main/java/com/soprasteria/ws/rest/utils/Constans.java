@@ -1,9 +1,5 @@
 package com.soprasteria.ws.rest.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.soprasteria.ws.rest.utils.annotations.Genre;
 
 public class Constans {
 

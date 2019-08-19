@@ -5,8 +5,6 @@ import java.util.Arrays;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.soprasteria.ws.rest.builder.concrete.MovieBuilderObject;
-import com.soprasteria.ws.rest.entity.MovieEntity;
 import com.soprasteria.ws.rest.utils.annotations.Genre;
 import com.soprasteria.ws.rest.utils.annotations.Year;
 

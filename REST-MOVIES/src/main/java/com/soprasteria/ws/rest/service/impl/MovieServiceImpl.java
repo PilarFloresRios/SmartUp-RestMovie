@@ -20,7 +20,6 @@ import com.soprasteria.ws.rest.utils.Constans;
 import com.soprasteria.ws.rest.utils.exceptions.ListIsEmptyException;
 import com.soprasteria.ws.rest.utils.exceptions.MovieExistsException;
 import com.soprasteria.ws.rest.utils.exceptions.OrderNotFoundException;
-import com.soprasteria.ws.rest.utils.exceptions.YearFormatException;
 
 /**
  * <h1>Class MovieService</h1> Include HTTP methods.

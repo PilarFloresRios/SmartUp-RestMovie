@@ -1,4 +1,4 @@
-package com.soprasteria.ws.rest.builder.concrete;
+package com.soprasteria.ws.rest.utils.builders.concrete;
 
 import com.soprasteria.ws.rest.dto.response.movie.MovieResponse;
 import com.soprasteria.ws.rest.dto.response.movie.MovieResponseFull;

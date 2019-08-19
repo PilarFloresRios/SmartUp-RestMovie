@@ -16,7 +16,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import com.soprasteria.ws.rest.builder.MovieBuilder;
 import com.soprasteria.ws.rest.createObject.MovieObject;
 import com.soprasteria.ws.rest.dao.MovieDAO;
 import com.soprasteria.ws.rest.dto.request.movie.MovieRequest;
@@ -24,6 +23,7 @@ import com.soprasteria.ws.rest.dto.response.movie.MovieResponse;
 import com.soprasteria.ws.rest.dto.response.movie.MovieResponseFull;
 import com.soprasteria.ws.rest.entity.MovieEntity;
 import com.soprasteria.ws.rest.service.impl.MovieServiceImpl;
+import com.soprasteria.ws.rest.utils.builders.MovieBuilder;
 import com.soprasteria.ws.rest.utils.exceptions.ListIsEmptyException;
 import com.soprasteria.ws.rest.utils.exceptions.MovieExistsException;
 import com.soprasteria.ws.rest.utils.exceptions.OrderNotFoundException;

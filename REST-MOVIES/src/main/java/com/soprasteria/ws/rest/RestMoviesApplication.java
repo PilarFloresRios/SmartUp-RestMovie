@@ -6,7 +6,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
-import com.soprasteria.ws.rest.builder.MovieBuilder;
+import com.soprasteria.ws.rest.utils.builders.MovieBuilder;
 
 @SpringBootApplication
 public class RestMoviesApplication {

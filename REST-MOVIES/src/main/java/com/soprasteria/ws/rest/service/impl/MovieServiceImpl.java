@@ -8,7 +8,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.soprasteria.ws.rest.builder.MovieBuilder;
 import com.soprasteria.ws.rest.dao.MovieDAO;
 import com.soprasteria.ws.rest.dto.request.movie.MovieRequest;
 import com.soprasteria.ws.rest.dto.response.movie.MovieResponse;
@@ -17,6 +16,7 @@ import com.soprasteria.ws.rest.entity.MovieEntity;
 import com.soprasteria.ws.rest.service.MovieService;
 import com.soprasteria.ws.rest.utils.Comuns;
 import com.soprasteria.ws.rest.utils.Constans;
+import com.soprasteria.ws.rest.utils.builders.MovieBuilder;
 import com.soprasteria.ws.rest.utils.exceptions.ListIsEmptyException;
 import com.soprasteria.ws.rest.utils.exceptions.MovieExistsException;
 import com.soprasteria.ws.rest.utils.exceptions.OrderNotFoundException;

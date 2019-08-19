@@ -1,4 +1,4 @@
-package com.soprasteria.ws.rest.exception;
+package com.soprasteria.ws.rest.utils.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

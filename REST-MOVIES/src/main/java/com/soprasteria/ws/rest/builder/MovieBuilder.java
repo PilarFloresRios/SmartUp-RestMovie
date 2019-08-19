@@ -1,10 +1,10 @@
 package com.soprasteria.ws.rest.builder;
 
 import com.soprasteria.ws.rest.builder.concrete.MovieBuilderObject;
+import com.soprasteria.ws.rest.dto.request.movie.MovieRequest;
+import com.soprasteria.ws.rest.dto.response.movie.MovieResponse;
+import com.soprasteria.ws.rest.dto.response.movie.MovieResponseFull;
 import com.soprasteria.ws.rest.entity.MovieEntity;
-import com.soprasteria.ws.rest.request.movie.MovieRequest;
-import com.soprasteria.ws.rest.response.movie.MovieResponse;
-import com.soprasteria.ws.rest.response.movie.MovieResponseFull;
 
 public class MovieBuilder {
 

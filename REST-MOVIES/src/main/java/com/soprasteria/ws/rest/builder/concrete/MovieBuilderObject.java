@@ -1,8 +1,8 @@
 package com.soprasteria.ws.rest.builder.concrete;
 
+import com.soprasteria.ws.rest.dto.response.movie.MovieResponse;
+import com.soprasteria.ws.rest.dto.response.movie.MovieResponseFull;
 import com.soprasteria.ws.rest.entity.MovieEntity;
-import com.soprasteria.ws.rest.response.movie.MovieResponse;
-import com.soprasteria.ws.rest.response.movie.MovieResponseFull;
 
 public class MovieBuilderObject {
 

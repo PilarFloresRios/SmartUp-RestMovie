@@ -1,19 +1,21 @@
-package com.soprasteria.ws.rest.request.movie;
+package com.soprasteria.ws.rest.dto.request.movie;
 
 import java.util.Arrays;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.soprasteria.ws.rest.annotation.Year;
 import com.soprasteria.ws.rest.builder.concrete.MovieBuilderObject;
 import com.soprasteria.ws.rest.entity.MovieEntity;
+import com.soprasteria.ws.rest.utils.annotations.Genre;
+import com.soprasteria.ws.rest.utils.annotations.Year;
 
 public class MovieRequest {
 
 	@NotBlank(message = "{movie.title.notBlank}")
 	@Size(min = 4, message = "The title must have a minimum of 4 characters")
 	private String title;
+	@Genre
 	private String genre;
 	@Year
 	private int year;

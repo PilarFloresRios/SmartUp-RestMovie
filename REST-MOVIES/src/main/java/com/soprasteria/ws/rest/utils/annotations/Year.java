@@ -1,4 +1,4 @@
-package com.soprasteria.ws.rest.annotation;
+package com.soprasteria.ws.rest.utils.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-import com.soprasteria.ws.rest.validator.YearValidator;
+import com.soprasteria.ws.rest.utils.validators.YearValidator;
 
 @Target({ ElementType.METHOD, ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)

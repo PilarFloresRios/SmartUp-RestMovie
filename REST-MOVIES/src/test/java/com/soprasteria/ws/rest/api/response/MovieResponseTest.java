@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import com.soprasteria.ws.rest.response.movie.MovieResponse;
+import com.soprasteria.ws.rest.dto.response.movie.MovieResponse;
 
 @RunWith(JUnit4.class)
 public class MovieResponseTest {

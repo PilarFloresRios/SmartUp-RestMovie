@@ -2,10 +2,7 @@ package com.soprasteria.ws.rest.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.soprasteria.ws.rest.exception.ListIsEmptyException;
-import com.soprasteria.ws.rest.exception.MovieExistsException;
-import com.soprasteria.ws.rest.exception.OrderNotFoundException;
+import java.util.Optional;
 
 //import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +10,17 @@ import org.springframework.stereotype.Service;
 
 import com.soprasteria.ws.rest.builder.MovieBuilder;
 import com.soprasteria.ws.rest.dao.MovieDAO;
+import com.soprasteria.ws.rest.dto.request.movie.MovieRequest;
+import com.soprasteria.ws.rest.dto.response.movie.MovieResponse;
+import com.soprasteria.ws.rest.dto.response.movie.MovieResponseFull;
 import com.soprasteria.ws.rest.entity.MovieEntity;
-import com.soprasteria.ws.rest.request.movie.MovieRequest;
-import com.soprasteria.ws.rest.response.movie.MovieResponseFull;
 import com.soprasteria.ws.rest.service.MovieService;
-import com.soprasteria.ws.rest.response.movie.MovieResponse;
+import com.soprasteria.ws.rest.utils.Comuns;
+import com.soprasteria.ws.rest.utils.Constans;
+import com.soprasteria.ws.rest.utils.exceptions.ListIsEmptyException;
+import com.soprasteria.ws.rest.utils.exceptions.MovieExistsException;
+import com.soprasteria.ws.rest.utils.exceptions.OrderNotFoundException;
+import com.soprasteria.ws.rest.utils.exceptions.YearFormatException;
 
 /**
  * <h1>Class MovieService</h1> Include HTTP methods.
@@ -72,12 +75,12 @@ public class MovieServiceImpl implements MovieService {
 	@Override
 	public MovieResponseFull getMovieByTitle(String titleIn) {
 
-		String title = titleIn.replace("_", " ");
+		String title = titleIn.replaceAll(Constans.getUnderscore(), Constans.getBlankSpace());
 
-		if (dao.findMovieDTOByTitle(title).isPresent()) {
+		if (dao.findMovieDTOByTitleIgnoreCase(title).isPresent()) {
 
-			MovieEntity movieEntity = dao.findMovieDTOByTitle(title).get();
-//			MovieResponseFull movieResponse = movieEntity.toMovieResponseFull();
+			MovieEntity movieEntity = dao.findMovieDTOByTitleIgnoreCase(title).get();
+
 			MovieResponseFull movieResponse = builder.toMovieResponseFull(movieEntity);
 
 			return movieResponse;
@@ -99,11 +102,10 @@ public class MovieServiceImpl implements MovieService {
 	@Override
 	public MovieResponseFull save(MovieRequest movie) throws MovieExistsException {
 
-		if (dao.findMovieDTOByTitle(movie.getTitle()).isPresent()) {
+		if (dao.findMovieDTOByTitleIgnoreCase(movie.getTitle()).isPresent()) {
 			throw new MovieExistsException();
 		} else {
 
-//			MovieEntity movieEntity = movie.toMovieEntity();
 			MovieEntity movieEntity = builder.toMovieEntity(movie);
 			MovieEntity movieSave = dao.saveAndFlush(movieEntity);
 			MovieResponseFull movieResponse = builder.toMovieResponseFull(movieSave);
@@ -142,13 +144,21 @@ public class MovieServiceImpl implements MovieService {
 	}
 
 	@Override
-	public MovieResponseFull getMovieByGenre(String genre) {
-		if (dao.findMovieDTOByGenre(genre).isPresent()) {
+	public List<MovieResponseFull> getMovieByGenre(String genre) {
+		if (dao.findMovieDTOByGenreIgnoreCase(genre).isPresent()) {
 
-			MovieEntity movieEntity = dao.findMovieDTOByGenre(genre).get();
-			MovieResponseFull movieResponse = builder.toMovieResponseFull(movieEntity);
+			List<MovieEntity> movieEntityList = dao.findMovieDTOByGenreIgnoreCase(genre).get();
+			List<MovieResponseFull> movieResponseList = new ArrayList<>();
 
-			return movieResponse;
+			for (int i = 0; i < movieEntityList.size(); i++) {
+
+				MovieEntity movieEntity = movieEntityList.get(i);
+				MovieResponseFull movieResponse = builder.toMovieResponseFull(movieEntity);
+				movieResponseList.add(movieResponse);
+
+			}
+
+			return movieResponseList;
 
 		} else {
 
@@ -203,8 +213,8 @@ public class MovieServiceImpl implements MovieService {
 			String movieDeleted = movieEntity.toString();
 			StringBuffer message = new StringBuffer();
 
-			message.append("[DELETED: ").append(movieDeleted);
 			dao.delete(movieEntity);
+			message.append("[DELETED: ").append(movieDeleted);
 
 			return message;
 
@@ -215,9 +225,70 @@ public class MovieServiceImpl implements MovieService {
 		}
 	}
 
-	/*
-	 * HACER: Internar hacer un metodo buscando por query y no a traves de borar
-	 * registros en la base de datos CONSULTA: Crear clase nueva MovieService y
-	 * renombrar esta como MovieServiceImpl, hasta que punto
-	 */
+	@Override
+	public List<MovieResponseFull> seachMovie(String title, String genre, String year) throws ListIsEmptyException {
+
+		String titleToSeach = title.replaceAll(Constans.getUnderscore(), Constans.getBlankSpace());
+
+		Optional<List<MovieEntity>> movieEntityList = null;
+
+		if (title != null) {
+			if (genre != null) {
+				if (year != null) {
+					if (Comuns.isNumeric(year)) {
+						movieEntityList = dao.findMovieTitleAndGenreAndYear(titleToSeach, genre, year);
+//					} else {
+//						throw new YearFormatException();
+					}
+				} else {
+					movieEntityList = dao.findMovieTitleAndGenre(titleToSeach, genre);
+				}
+			} else {
+				if (year != null) {
+					if (Comuns.isNumeric(year)) {
+						movieEntityList = dao.findMovieTitleAndYear(titleToSeach, year);
+					}
+
+				} else {
+
+					movieEntityList = dao.findMovieDTOByTitleContainingIgnoreCase(titleToSeach);
+				}
+			}
+
+		} else if (genre != null) {
+			if (year != null) {
+				if (Comuns.isNumeric(year)) {
+					movieEntityList = dao.findMovieGenreAndYear(genre, year);
+				}
+			} else {
+				movieEntityList = dao.findMovieDTOByGenreIgnoreCase(genre);
+			}
+
+		} else if (year != null) {
+			if (Comuns.isNumeric(year)) {
+				movieEntityList = dao.findMovieDTOByYear(Integer.parseInt(year));
+			}
+		}
+
+		List<MovieResponseFull> movieResponseList = new ArrayList<MovieResponseFull>();
+
+		if (movieEntityList.isPresent()) {
+
+			List<MovieEntity> list = movieEntityList.get();
+
+			for (int i = 0; i < list.size(); i++) {
+
+				MovieEntity movieEntity = list.get(i);
+				MovieResponseFull movieResponse = builder.toMovieResponseFull(movieEntity);
+				movieResponseList.add(movieResponse);
+
+			}
+			return movieResponseList;
+
+		} else {
+			throw new ListIsEmptyException();
+
+		}
+
+	}
 }

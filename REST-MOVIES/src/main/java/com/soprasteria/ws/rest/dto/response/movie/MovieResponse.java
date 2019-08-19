@@ -1,4 +1,4 @@
-package com.soprasteria.ws.rest.response.movie;
+package com.soprasteria.ws.rest.dto.response.movie;
 
 public class MovieResponse {
 

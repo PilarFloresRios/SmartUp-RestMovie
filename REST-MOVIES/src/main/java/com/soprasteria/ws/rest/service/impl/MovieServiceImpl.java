@@ -169,6 +169,7 @@ public class MovieServiceImpl implements MovieService {
 		if (dao.findMovieDTOById(id).isPresent()) {
 
 			MovieEntity movieToUpdate = dao.findMovieDTOById(id).get();
+			
 			if (!movie.getTitle().isEmpty()) {
 				movieToUpdate.setTitle(movie.getTitle());
 			}

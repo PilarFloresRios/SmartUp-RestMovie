@@ -24,7 +24,7 @@ public interface MovieDAO extends JpaRepository<MovieEntity, Long> {
 			  nativeQuery = true)
 	Optional<List<MovieEntity>> findMovieTitleAndGenreAndYear(String title, String genre, String year);
 	
-	@Query(value = "SELECT * FROM MOVIES m WHERE m.title LIKE %:title% and m.genre = :genre", 
+	@Query(value = "SELECT * FROM MOVIES m WHERE m.title LIKE %:title% AND m.genre = :genre  ", 
 			  nativeQuery = true)
 	Optional<List<MovieEntity>> findMovieTitleAndGenre(String title, String genre);
 	

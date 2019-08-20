@@ -9,7 +9,6 @@ public class MovieResponseFull extends MovieResponse {
 
 	public MovieResponseFull() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public String getGenre() {

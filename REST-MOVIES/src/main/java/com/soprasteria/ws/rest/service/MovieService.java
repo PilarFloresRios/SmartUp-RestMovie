@@ -18,7 +18,7 @@ public interface MovieService {
 	public abstract List<MovieResponseFull> getMovieByGenre(String genre);
 	public abstract MovieResponseFull save(MovieRequest movie) throws MovieExistsException;
 	public abstract MovieResponseFull update(MovieRequest movie, Long id);
-	public abstract StringBuffer delete (long id);
+	public abstract String delete (long id);
 	public abstract List<MovieResponse> getMovieList() throws ListIsEmptyException;
 	public abstract List<MovieResponseFull> seachMovie(String title, String genre, String year) throws ListIsEmptyException;
 }

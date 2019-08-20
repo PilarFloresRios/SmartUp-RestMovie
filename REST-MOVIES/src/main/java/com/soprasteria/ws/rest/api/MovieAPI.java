@@ -22,7 +22,7 @@ public interface MovieAPI {
 
 	public abstract MovieResponseFull update(MovieRequest movieReques, Long id);
 
-	public abstract StringBuffer delete (Long id);
+	public abstract String delete (Long id);
 	
 	public abstract List<MovieResponseFull> findMovie(String title, String genre, String year) throws ListIsEmptyException;
 }

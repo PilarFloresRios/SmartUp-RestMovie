@@ -13,6 +13,7 @@ public class YearValidator implements ConstraintValidator<Year, Integer>{
 
 	 @Override
 	    public void initialize(Year year) {
+		 // Default initialize
 	    }
 
 

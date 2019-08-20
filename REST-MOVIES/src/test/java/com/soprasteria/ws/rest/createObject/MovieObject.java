@@ -26,6 +26,9 @@ public class MovieObject {
 		MovieEntity movie = new MovieEntity();
 		
 		movie.setId(id);	
+		movie.setTitle("Titulo test");
+		movie.setGenre("Genero");
+		movie.setYear(2000);
 	
 		return movie;
 	}
@@ -37,6 +40,8 @@ public class MovieObject {
 
 		
 		movie.setTitle("Titulo test");
+		movie.setGenre("Genero");
+		movie.setYear(2000);
 	
 		
 		return movie;

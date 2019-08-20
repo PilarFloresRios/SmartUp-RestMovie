@@ -9,10 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-//import com.soprasteria.ws.rest.builder.concrete.MovieResponseBuilder;
-//import com.soprasteria.ws.rest.builder.concrete.MovieResponseFullBuilder;
-//import com.soprasteria.ws.rest.response.movie.MovieResponse;
-//import com.soprasteria.ws.rest.response.movie.MovieResponseFull;
 
 @Entity
 @Table(name = "MOVIES")
@@ -37,20 +33,9 @@ public class MovieEntity implements Serializable {
 	
 	@Column	
 	private String actors[] = null;
-	
-	
-	
-//	public MovieDTO(Long id, String title, String genre, int year, String[] actors) {
-//		super();
-//		this.id = id;
-//		this.title = title;
-//		this.genre = genre;
-//		this.year = year;
-//		this.actors = actors;
-//	}
 
 	public MovieEntity() {
-
+		// Constructor
 	}
 
 	public static long getSerialversionuid() {
@@ -70,7 +55,7 @@ public class MovieEntity implements Serializable {
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+		this.title = title.toUpperCase();
 	}
 
 	public String getGenre() {
@@ -78,7 +63,7 @@ public class MovieEntity implements Serializable {
 	}
 
 	public void setGenre(String genre) {
-		this.genre = genre;
+		this.genre = genre.toUpperCase();
 	}
 
 	public int getYear() {
@@ -114,25 +99,4 @@ public class MovieEntity implements Serializable {
 		return builder.toString();
 	}
 
-//	public MovieResponse toMovieResponse() {
-//		MovieResponseBuilder builder = new MovieResponseBuilder();
-//
-//		builder.setId(id);
-//		builder.setTitle(title);
-//		builder.setYear(year);
-//
-//		return builder.getResult();
-//	}
-//	
-//	public MovieResponseFull toMovieResponseFull() {
-//		MovieResponseFullBuilder builder = new MovieResponseFullBuilder();
-//
-//		builder.setId(id);
-//		builder.setTitle(title);
-//		builder.setYear(year);
-//		builder.setGenre(genre);
-//		builder.setActors(actors);
-//
-//		return builder.getResult();
-//	}
 }

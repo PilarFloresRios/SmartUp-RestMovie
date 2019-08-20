@@ -3,6 +3,7 @@ package com.soprasteria.ws.rest.dto.request.movie;
 import java.util.Arrays;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.soprasteria.ws.rest.utils.annotations.Genre;
@@ -13,13 +14,18 @@ public class MovieRequest {
 	@NotBlank(message = "{movie.title.notBlank}")
 	@Size(min = 4, message = "The title must have a minimum of 4 characters")
 	private String title;
+	@NotNull (message = "{movie.genre.notNull}")
 	@Genre
 	private String genre;
 	@Year
 	private int year;
 	private String actors[] = null;
 
+	
+
+
 	public MovieRequest() {
+		super();
 	}
 
 	public String getTitle() {
@@ -73,14 +79,4 @@ public class MovieRequest {
 		return builder.toString();
 	}
 
-//	public MovieEntity toMovieEntity() {
-//		MovieEntityBuilder builder = new MovieEntityBuilder();
-//
-//		builder.setTitle(title);
-//		builder.setGenre(genre);
-//		builder.setYear(year);
-//		builder.setActors(actors);
-//
-//		return builder.getResult();
-//	}
 }

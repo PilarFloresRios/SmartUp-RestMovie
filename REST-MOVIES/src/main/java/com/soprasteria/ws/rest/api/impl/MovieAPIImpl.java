@@ -6,11 +6,12 @@ import javax.validation.Valid;
 import javax.ws.rs.QueryParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soprasteria.ws.rest.api.MovieAPI;
@@ -33,48 +34,47 @@ public class MovieAPIImpl implements MovieAPI {
 	}
 
 	@Override
-	@RequestMapping(value = "/movies/{id}", method = RequestMethod.GET)
+	@GetMapping(value = "/movies/{id}")
 	public MovieResponseFull getById(@PathVariable Long id) {
 
 		return movieService.getMovieId(id);
 	}
 
 	@Override
-	@RequestMapping(value = "/movies/title/{title}", method = RequestMethod.GET)
+	@GetMapping(value = "/movies/title/{title}")
 	public MovieResponseFull getMovieByTitle(@PathVariable String title) {
 
 		return movieService.getMovieByTitle(title);
 	}
 	
 	@Override
-	@RequestMapping(value = "/movies/genre/{genre}", method = RequestMethod.GET)
+	@GetMapping(value = "/movies/genre/{genre}")
 	public List<MovieResponseFull> getMovieByGenre(@PathVariable String genre) {
 
 		return movieService.getMovieByGenre(genre);
 	}
 
 	@Override
-	@RequestMapping(value = "/movies", method = RequestMethod.GET)
+	@GetMapping(value = "/movies")
 	public List<MovieResponse> getMovieList() throws ListIsEmptyException {
 
 		return movieService.getMovieList();
 	}
 
-	@RequestMapping(value = "/movies", method = RequestMethod.POST)
+	@PostMapping(value = "/movies")
 	public MovieResponseFull save(@Valid @RequestBody MovieRequest movieRequest) throws MovieExistsException {
 
 		return movieService.save(movieRequest);
 	}
 	
-	@RequestMapping(value = "/movies/{id}", method = RequestMethod.PUT)
+	@PutMapping(value = "/movies/{id}")
 	public MovieResponseFull update(@Valid @RequestBody MovieRequest movieRequest, @PathVariable Long id) {
 
 		return movieService.update(movieRequest, id);
 	}
 
-	@RequestMapping(value = "/movies/{id}", method = RequestMethod.DELETE)
-	public StringBuffer delete(@PathVariable Long id) {
-		// TODO Auto-generated method stub
+	@DeleteMapping(value = "/movies/{id}")
+	public String delete(@PathVariable Long id) {
 		return movieService.delete(id);
 	}
 	

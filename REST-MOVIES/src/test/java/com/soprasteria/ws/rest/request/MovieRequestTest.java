@@ -19,7 +19,7 @@ public class MovieRequestTest {
 
 		movieRequest = new MovieRequest();
 
-		String actors[] = {"Actor2"};
+		String actors[] = {"Actor"};
 
 //		movieRequest.setIdMovie(1L);
 		movieRequest.setTitle("Titulo");

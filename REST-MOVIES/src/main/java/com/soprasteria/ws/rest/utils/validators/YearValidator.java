@@ -20,16 +20,18 @@ public class YearValidator implements ConstraintValidator<Year, Integer>{
 	@Override
 	public boolean isValid(Integer value, ConstraintValidatorContext context) {
 		
+		boolean isValid = false;
+		
 		Calendar cal= Calendar.getInstance();
 		int year= cal.get(Calendar.YEAR);
 	
 		if (value>= 1800 && value<=(year+5)) {
 		
 		
-			return true;
+			isValid = true;
 		} 
 		
-		return false;
+		return isValid;
 	}
 	
 	/*

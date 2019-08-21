@@ -14,7 +14,7 @@ public class MovieBuilderObject {
 
 	private int year;
 
-	private String actors[];
+	private String[] actors;
 
 	
 	

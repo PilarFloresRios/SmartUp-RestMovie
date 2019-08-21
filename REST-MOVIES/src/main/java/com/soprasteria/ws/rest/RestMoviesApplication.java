@@ -25,8 +25,8 @@ public class RestMoviesApplication {
     
     @Bean
     public MovieBuilder movieBuilder() {
-    	MovieBuilder movieBuilder = new MovieBuilder();
-        return movieBuilder;
+
+        return new MovieBuilder();
     }
     /*
      * CONSULTA: Lo correcto seria crear un validador bean dentro del parquete bean?

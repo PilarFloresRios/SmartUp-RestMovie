@@ -19,7 +19,7 @@ public class MovieRequest {
 	private String genre;
 	@Year
 	private int year;
-	private String actors[] = null;
+	private String[] actors = null;
 
 	
 

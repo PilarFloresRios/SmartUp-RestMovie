@@ -49,10 +49,12 @@ public class MovieServiceImpl implements MovieService {
 	 */
 	@Override
 	public MovieResponseFull getMovieId(Long id) {
+		
+		Optional<MovieEntity> movieOptional = dao.findById(id);
 
-		if (dao.findById(id).isPresent()) {
+		if (movieOptional.isPresent()) {
 
-			MovieEntity movieEntity = dao.findById(id).get();
+			MovieEntity movieEntity = movieOptional.get();
 
 			return builder.toMovieResponseFull(movieEntity);
 
@@ -69,9 +71,11 @@ public class MovieServiceImpl implements MovieService {
 
 		String title = titleIn.replaceAll(Constans.getUnderscore(), Constans.getBlankSpace());
 
-		if (dao.findMovieDTOByTitleIgnoreCase(title).isPresent()) {
+		Optional<MovieEntity> movieOptional = dao.findMovieDTOByTitleIgnoreCase(title);
 
-			MovieEntity movieEntity = dao.findMovieDTOByTitleIgnoreCase(title).get();
+		if (movieOptional.isPresent()) {
+
+			MovieEntity movieEntity = movieOptional.get();
 
 			return builder.toMovieResponseFull(movieEntity);
 
@@ -98,7 +102,7 @@ public class MovieServiceImpl implements MovieService {
 
 			MovieEntity movieEntity = builder.toMovieEntity(movie);
 			MovieEntity movieSave = dao.saveAndFlush(movieEntity);
-			
+
 			return builder.toMovieResponseFull(movieSave);
 		}
 	}
@@ -134,9 +138,12 @@ public class MovieServiceImpl implements MovieService {
 
 	@Override
 	public List<MovieResponseFull> getMovieByGenre(String genre) {
-		if (dao.findMovieDTOByGenreIgnoreCase(genre).isPresent()) {
+		
+		Optional<List<MovieEntity>> movieOptional = dao.findMovieDTOByGenreIgnoreCase(genre);
+		
+		if (movieOptional.isPresent()) {
 
-			List<MovieEntity> movieEntityList = dao.findMovieDTOByGenreIgnoreCase(genre).get();
+			List<MovieEntity> movieEntityList = movieOptional.get();
 			List<MovieResponseFull> movieResponseList = new ArrayList<>();
 
 			for (int i = 0; i < movieEntityList.size(); i++) {
@@ -165,28 +172,31 @@ public class MovieServiceImpl implements MovieService {
 	 */
 	@Override
 	public MovieResponseFull update(MovieRequest movie, Long id) {
+		Optional<MovieEntity> movieOptional = dao.findMovieDTOById(id);
 
-		if (dao.findMovieDTOById(id).isPresent()) {
+		if (movieOptional.isPresent()) {
+			MovieEntity movieToUpdate = movieOptional.get();
 
-			MovieEntity movieToUpdate = dao.findMovieDTOById(id).get();
+			if (movieToUpdate != null) {
+				if (!movie.getTitle().isEmpty()) {
+					movieToUpdate.setTitle(movie.getTitle());
+				}
+
+				if (!movie.getGenre().isEmpty()) {
+					movieToUpdate.setGenre(movie.getGenre());
+				}
+				if ((movie.getYear() != 0)) {
+					movieToUpdate.setYear(movie.getYear());
+				}
+
+				/* falta actualizar y añadir actores */
+
+				dao.saveAndFlush(movieToUpdate);
+
+			}
 			
-			if (!movie.getTitle().isEmpty()) {
-				movieToUpdate.setTitle(movie.getTitle());
-			}
-
-			if (!movie.getGenre().isEmpty()) {
-				movieToUpdate.setGenre(movie.getGenre());
-			}
-			if ((movie.getYear() != 0)) {
-				movieToUpdate.setYear(movie.getYear());
-			}
-
-			/* falta actualizar y añadir actores */
-
-			dao.saveAndFlush(movieToUpdate);
-
 			return builder.toMovieResponseFull(movieToUpdate);
-			
+
 		} else {
 
 			throw new OrderNotFoundException();
@@ -195,13 +205,15 @@ public class MovieServiceImpl implements MovieService {
 
 	@Override
 	public String delete(long id) {
+		
+		Optional<MovieEntity> movieOptional = dao.findById(id);
 
-		if (dao.findById(id).isPresent()) {
+		if (movieOptional.isPresent()) {
 
-			MovieEntity movieEntity = dao.findById(id).get();
+			MovieEntity movieEntity = movieOptional.get();
 
 			String movieDeleted = movieEntity.toString();
-			StringBuilder  message = new StringBuilder ();
+			StringBuilder message = new StringBuilder();
 
 			dao.delete(movieEntity);
 			message.append("[DELETED: ").append(movieDeleted);
@@ -218,15 +230,13 @@ public class MovieServiceImpl implements MovieService {
 	@Override
 	public List<MovieResponseFull> seachMovie(String title, String genre, String year) throws ListIsEmptyException {
 
-		
-
 		Optional<List<MovieEntity>> movieEntityList = null;
 
 		if (title != null && title.length() != 0) {
 			String titleToSeach = title.replaceAll(Constans.getUnderscore(), Constans.getBlankSpace());
 			movieEntityList = findMovieWithTitle(titleToSeach.toUpperCase(), genre, year);
 
-		} else {			
+		} else {
 			movieEntityList = findMovieWithOutTitle(genre, year);
 		}
 
@@ -251,10 +261,9 @@ public class MovieServiceImpl implements MovieService {
 		}
 
 	}
-	
-	
+
 	public Optional<List<MovieEntity>> findMovieWithTitle(String title, String genre, String year) {
-	
+
 		Optional<List<MovieEntity>> movieEntityList = null;
 
 		if (genre != null) {
@@ -278,12 +287,11 @@ public class MovieServiceImpl implements MovieService {
 		}
 
 		return movieEntityList;
-	
+
 	}
-	
-	
+
 	public Optional<List<MovieEntity>> findMovieWithOutTitle(String genre, String year) {
-		
+
 		Optional<List<MovieEntity>> movieEntityList = null;
 
 		if (genre != null) {
@@ -296,12 +304,12 @@ public class MovieServiceImpl implements MovieService {
 			}
 
 		} else if (year != null && Comuns.isNumeric(year)) {
-			
-				movieEntityList = dao.findMovieDTOByYear(Integer.parseInt(year));
-			
+
+			movieEntityList = dao.findMovieDTOByYear(Integer.parseInt(year));
+
 		}
-		
+
 		return movieEntityList;
-	
+
 	}
 }

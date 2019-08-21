@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class MovieResponseFull extends MovieResponse {
 
 	private String genre;
-	private String actors[];
+	private String[] actors;
 
 	public MovieResponseFull() {
 		super();
@@ -45,6 +45,10 @@ public class MovieResponseFull extends MovieResponse {
 		builder.append("]");
 		return builder.toString();
 	}
+	
+	
+
+
 
 
 	

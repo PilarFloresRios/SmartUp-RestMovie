@@ -3,7 +3,6 @@ package com.soprasteria.ws.rest.utils;
 import com.soprasteria.ws.rest.utils.exceptions.YearFormatException;
 
 public class Comuns {
-	
 
 	private Comuns() {
 		super();

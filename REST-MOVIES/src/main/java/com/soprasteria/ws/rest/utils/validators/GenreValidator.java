@@ -23,6 +23,7 @@ public class GenreValidator implements ConstraintValidator<Genre, String>{
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
 		
+		boolean isValid = false;
 		
 		List<String> genres = new ArrayList<>();
 		
@@ -32,11 +33,11 @@ public class GenreValidator implements ConstraintValidator<Genre, String>{
 		genres.add(Constans.getTerror());
 		
 		if (value != null && genres.contains(value.toUpperCase())) {
-			return true;
-		} else {
-		
-		return false;
+			isValid = true;
 		}
+		
+		return isValid;
+		
 	}
 
 }

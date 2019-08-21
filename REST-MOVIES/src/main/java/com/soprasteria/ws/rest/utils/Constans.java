@@ -2,9 +2,11 @@ package com.soprasteria.ws.rest.utils;
 
 
 public class Constans {
-	
-	
 
+	
+	private Constans() {
+		super();
+	}
 	
 	static final String UNDERSCORE = "_";
 	static final String BLANK_SPACE = " ";

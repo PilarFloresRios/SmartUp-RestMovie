@@ -32,12 +32,45 @@ public class MovieAPIImpl implements MovieAPI {
 		super();
 		this.movieService = movieService;
 	}
+	
+	@Override
+	@GetMapping(value = "/movies")
+	public List<MovieResponse> getMovieList() throws ListIsEmptyException {
+
+		return movieService.getMovieList();
+	}
+	
+
+	@PostMapping(value = "/movies")
+	public MovieResponseFull save(@Valid @RequestBody MovieRequest movieRequest) throws MovieExistsException {
+
+		return movieService.save(movieRequest);
+	}
 
 	@Override
 	@GetMapping(value = "/movies/{id}")
 	public MovieResponseFull getById(@PathVariable Long id) {
 
 		return movieService.getMovieId(id);
+	}
+	
+	@PutMapping(value = "/movies/{id}")
+	public MovieResponseFull update(@Valid @RequestBody MovieRequest movieRequest, @PathVariable Long id) {
+
+		return movieService.update(movieRequest, id);
+	}
+
+	@DeleteMapping(value = "/movies/{id}")
+	public String delete(@PathVariable Long id) {
+		return movieService.delete(id);
+	}
+	
+	@GetMapping(value = "/movies/search")
+	public List<MovieResponseFull> findMovie(@QueryParam(value = "title") String title, 
+											 @QueryParam(value = "genre") String genre,
+											 @QueryParam(value = "year") String year) throws ListIsEmptyException {
+
+		return movieService.seachMovie(title, genre, year);
 	}
 
 	@Override
@@ -54,38 +87,5 @@ public class MovieAPIImpl implements MovieAPI {
 		return movieService.getMovieByGenre(genre);
 	}
 
-	@Override
-	@GetMapping(value = "/movies")
-	public List<MovieResponse> getMovieList() throws ListIsEmptyException {
-
-		return movieService.getMovieList();
-	}
-
-	@PostMapping(value = "/movies")
-	public MovieResponseFull save(@Valid @RequestBody MovieRequest movieRequest) throws MovieExistsException {
-
-		return movieService.save(movieRequest);
-	}
-	
-	@PutMapping(value = "/movies/{id}")
-	public MovieResponseFull update(@Valid @RequestBody MovieRequest movieRequest, @PathVariable Long id) {
-
-		return movieService.update(movieRequest, id);
-	}
-
-	@DeleteMapping(value = "/movies/{id}")
-	public String delete(@PathVariable Long id) {
-		return movieService.delete(id);
-	}
-	
-
-	@GetMapping(value = "/movies/search")
-	public List<MovieResponseFull> findMovie(@QueryParam(value = "title") String title, 
-											 @QueryParam(value = "genre") String genre,
-											 @QueryParam(value = "year") String year) throws ListIsEmptyException {
-
-		return movieService.seachMovie(title, genre, year);
-	}
-	
 
 }

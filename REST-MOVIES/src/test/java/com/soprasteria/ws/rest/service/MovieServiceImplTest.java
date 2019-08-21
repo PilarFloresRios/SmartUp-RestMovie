@@ -200,34 +200,34 @@ public class MovieServiceImplTest {
 		 movieService.update(movieToSave, id);
 	}
 	
-	@Test
-	@Ignore
-	public void whenExistsMovie_thenMovieShouldBeUpdate() throws Throwable {
-
-		MovieRequest movieToSave = MovieObject.createMovieRequest();
-	
-		Long id = 1L;
-		MovieEntity dto = MovieObject.createMovieEntity(id);
-		when(movieDAO.findMovieDTOById(id)).thenReturn(Optional.of(dto));
-		
-		MovieEntity updated =MovieObject.createMovieEntity(id);
-		updated.setTitle("Titulo test");
-		updated.setGenre("Genero");
-		updated.setYear(2000);
-		
-//		when(movieDAO.saveAndFlush(updated)).thenReturn(updated);
-		
-		MovieResponseFull response = MovieObject.createMovieResponseFull(id);
-		
-		when(builder.toMovieResponseFull(updated)).thenReturn(response);
-		
-MovieResponseFull actual = movieService.update(movieToSave, id);
-		
-		assertEquals(id, actual.getId());
-
-		 movieService.update(movieToSave, id);
-	}
-	
+////	@Test
+//	@Ignore
+//	public void whenExistsMovie_thenMovieShouldBeUpdate() throws Throwable {
+//
+//		MovieRequest movieToSave = MovieObject.createMovieRequest();
+//	
+//		Long id = 1L;
+//		MovieEntity dto = MovieObject.createMovieEntity(id);
+//		when(movieDAO.findMovieDTOById(id)).thenReturn(Optional.of(dto));
+//		
+//		MovieEntity updated =MovieObject.createMovieEntity(id);
+//		updated.setTitle("Titulo test");
+//		updated.setGenre("Genero");
+//		updated.setYear(2000);
+//		
+////		when(movieDAO.saveAndFlush(updated)).thenReturn(updated);
+//		
+//		MovieResponseFull response = MovieObject.createMovieResponseFull(id);
+//		
+//		when(builder.toMovieResponseFull(updated)).thenReturn(response);
+//		
+//MovieResponseFull actual = movieService.update(movieToSave, id);
+//		
+//		assertEquals(id, actual.getId());
+//
+//		 movieService.update(movieToSave, id);
+//	}
+//	
 	@Test(expected = OrderNotFoundException.class)
 	public void whenNotExistsMovie_thenMovieShouldNotBeDelete() throws Throwable {
 

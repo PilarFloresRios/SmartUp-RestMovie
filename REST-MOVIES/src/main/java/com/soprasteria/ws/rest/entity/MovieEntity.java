@@ -32,7 +32,7 @@ public class MovieEntity implements Serializable {
 
 	
 	@Column	
-	private String actors[] = null;
+	private String[] actors = null;
 
 	public MovieEntity() {
 		// Constructor
